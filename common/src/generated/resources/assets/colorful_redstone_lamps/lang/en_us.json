@@ -35,6 +35,7 @@
   "colorful_redstone_lamps.welcome.feedback.github": "Github",
   "colorful_redstone_lamps.welcome.feedback_intro": "Feedback:",
   "colorful_redstone_lamps.welcome.title": "Colorful Redstone Lamps loaded.",
+  "config.colorful_redstone_lamps.show_welcome_message": "Show Welcome Message",
   "item.colorful_redstone_lamps.black_redstone_lamp": "Black Redstone Lamp",
   "item.colorful_redstone_lamps.black_redstone_lamp_inverted": "Black Redstone Lamp (Inverted)",
   "item.colorful_redstone_lamps.blue_redstone_lamp": "Blue Redstone Lamp",

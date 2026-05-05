@@ -30,6 +30,7 @@ public final class ModLanguageEntries {
         entries.put("colorful_redstone_lamps.welcome.feedback_intro", "Feedback:");
         entries.put("colorful_redstone_lamps.welcome.feedback.github", "Github");
         entries.put("colorful_redstone_lamps.welcome.feedback.discord", "Discord");
+        entries.put("config.colorful_redstone_lamps.show_welcome_message", "Show Welcome Message");
 
 
         return entries;
@@ -56,6 +57,7 @@ public final class ModLanguageEntries {
         entries.put("colorful_redstone_lamps.welcome.feedback_intro", "Feedback:");
         entries.put("colorful_redstone_lamps.welcome.feedback.github", "Github");
         entries.put("colorful_redstone_lamps.welcome.feedback.discord", "Discord");
+        entries.put("config.colorful_redstone_lamps.show_welcome_message", "Willkommensnachricht anzeigen");
 
         return entries;
     }

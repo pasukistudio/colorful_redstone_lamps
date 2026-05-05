@@ -1,5 +1,6 @@
 package de.pasuki.colorful_redstone_lamps.message;
 
+import de.pasuki.colorful_redstone_lamps.config.ModConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -14,6 +15,10 @@ public final class WelcomeMessageHandler {
     }
 
     public static void onPlayerJoined(ServerPlayer player) {
+        if (!ModConfig.showWelcomeMessage()) {
+            return;
+        }
+
         ServerLevel overworld = player.server.overworld();
         WelcomeMessageData data = WelcomeMessageData.get(overworld);
         var playerId = player.getUUID();

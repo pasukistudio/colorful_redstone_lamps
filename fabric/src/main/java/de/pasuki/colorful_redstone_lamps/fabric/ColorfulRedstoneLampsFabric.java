@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 public final class ColorfulRedstoneLampsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
+        ColorfulRedstoneLampsFabricConfig.load();
         ColorfulRedstoneLamps.init();
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
                 WelcomeMessageHandler.onPlayerJoined(handler.getPlayer())
