@@ -55,11 +55,8 @@ Your builds deserve better lighting.
 
 ## 📦 Compatibility
 
-**Minecraft:** 26.1.1  
+**Minecraft:** 26.1.2  
 **Loader:** Fabric, NeoForge
-
-> **NeoForge 26.1.x:** Die erforderliche Architectury-Korrektur ist bereits in der
-> NeoForge-Mod-JAR enthalten. Es muss keine zusätzliche JAR installiert werden.
 
 ***
 

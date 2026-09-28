@@ -30,9 +30,9 @@
   ],
   "depends": {
     "fabricloader": ">=0.19.5",
-    "minecraft": "~26.1.1",
+    "minecraft": "~26.1.2",
     "java": ">=25",
-    "architectury": ">=20.0.4",
+    "architectury": ">=20.1.16",
     "fabric-api": "*"
   },
   "suggests": {
