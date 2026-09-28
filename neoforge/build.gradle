@@ -58,17 +58,13 @@ shadowJar {
     dependsOn jar
     mainSpec.sourcePaths.clear()
     from zipTree(jar.archiveFile)
+    // NeoForge discovers embedded dependencies through META-INF/jarjar/metadata.json.
+    // Keep Architectury as a nested JAR so users only have to install this mod JAR.
+    from('libs/architectury-neoforge-20.0.4-26.1fix.jar') {
+        into 'META-INF/jarjar'
+    }
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = "mc${rootProject.minecraft_version}-neoforge"
-}
-
-tasks.register('copyPatchedArchitectury', Copy) {
-    from layout.projectDirectory.file('libs/architectury-neoforge-20.0.4-26.1fix.jar')
-    into layout.buildDirectory.dir('libs')
-}
-
-tasks.named('shadowJar') {
-    finalizedBy tasks.named('copyPatchedArchitectury')
 }
 
 jar {
