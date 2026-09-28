@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -27,13 +28,13 @@ public final class ColorfulRedstoneLampsItemTagProvider extends FabricTagsProvid
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        var lampsTag = valueLookupBuilder(LAMPS);
-        var invertedTag = valueLookupBuilder(INVERTED_LAMPS);
-        var anyLampTag = valueLookupBuilder(ANY_LAMP);
+        var lampsTag = builder(LAMPS);
+        var invertedTag = builder(INVERTED_LAMPS);
+        var anyLampTag = builder(ANY_LAMP);
 
         for (DyeColor color : DyeColor.values()) {
-            lampsTag.add(ModBlocks.LAMPS.get(color).get().asItem());
-            invertedTag.add(ModBlocks.INVERTED_LAMPS.get(color).get().asItem());
+            lampsTag.add(ResourceKey.create(Registries.ITEM, ModBlocks.LAMPS.get(color).getId()));
+            invertedTag.add(ResourceKey.create(Registries.ITEM, ModBlocks.INVERTED_LAMPS.get(color).getId()));
         }
 
         anyLampTag.addTag(LAMPS);

@@ -30,13 +30,13 @@ public final class ColorfulRedstoneLampsBlockTagProvider extends FabricTagsProvi
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        var lampsTag = valueLookupBuilder(LAMPS);
-        var invertedTag = valueLookupBuilder(INVERTED_LAMPS);
-        var anyLampTag = valueLookupBuilder(ANY_LAMP);
+        var lampsTag = builder(LAMPS);
+        var invertedTag = builder(INVERTED_LAMPS);
+        var anyLampTag = builder(ANY_LAMP);
 
         for (DyeColor color : DyeColor.values()) {
-            lampsTag.add(ModBlocks.LAMPS.get(color).get());
-            invertedTag.add(ModBlocks.INVERTED_LAMPS.get(color).get());
+            lampsTag.add(ModBlocks.LAMPS.get(color).getKey());
+            invertedTag.add(ModBlocks.INVERTED_LAMPS.get(color).getKey());
         }
 
         anyLampTag.addTag(LAMPS);

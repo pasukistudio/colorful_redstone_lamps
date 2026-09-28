@@ -55,7 +55,7 @@ Your builds deserve better lighting.
 
 ## 📦 Compatibility
 
-**Minecraft:** 26.1.2  
+**Minecraft:** 26.2  
 **Loader:** Fabric, NeoForge
 
 ***
