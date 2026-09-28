@@ -55,8 +55,12 @@ Your builds deserve better lighting.
 
 ## 📦 Compatibility
 
-**Minecraft:** 1.21.1 – 1.21.11  
-**Loader:** NeoForge, Fabric
+**Minecraft:** 26.1  
+**Loader:** Fabric, NeoForge
+
+> **NeoForge 26.1:** Lege zusätzlich zur Mod-JAR die Datei
+> `architectury-neoforge-20.0.4-26.1fix.jar` aus `neoforge/build/libs` in den Mods-Ordner.
+> Sie behebt einen Architectury-Fehler mit dem NeoForge-26.1-Block-Break-Event.
 
 ***
 

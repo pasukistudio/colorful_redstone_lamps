@@ -1,7 +1,7 @@
 package de.pasuki.colorful_redstone_lamps.fabric.datagen;
 
 import de.pasuki.colorful_redstone_lamps.datagen.ModLanguageEntries;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public final class ColorfulRedstoneLampsGermanLanguageProvider extends FabricLanguageProvider {
-    public ColorfulRedstoneLampsGermanLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public ColorfulRedstoneLampsGermanLanguageProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, "de_de", registryLookup);
     }
 

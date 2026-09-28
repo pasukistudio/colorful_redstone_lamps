@@ -18,21 +18,21 @@ It also adds inverted lamps, which behave opposite to normal lamps and turn off 
 [[dependencies.colorful_redstone_lamps]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.11,)"
+versionRange = "[26.1.0.19-beta,26.1.1)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.colorful_redstone_lamps]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.11,)"
+versionRange = "[26.1,26.1.1)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.colorful_redstone_lamps]]
 modId = "architectury"
 type = "required"
-versionRange = "[19.0.1,)"
+versionRange = "[20.0.4,20.1)"
 ordering = "AFTER"
 side = "BOTH"
 

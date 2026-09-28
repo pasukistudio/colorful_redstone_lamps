@@ -2,8 +2,8 @@ package de.pasuki.colorful_redstone_lamps.message;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
 
@@ -13,7 +13,9 @@ import java.util.Set;
 import java.util.UUID;
 
 public final class WelcomeMessageData extends SavedData {
-    private static final String DATA_NAME = "colorful_redstone_lamps_welcome";
+    private static final Identifier DATA_ID = Identifier.fromNamespaceAndPath(
+            "colorful_redstone_lamps", "colorful_redstone_lamps_welcome"
+    );
 
     // Feld MUSS vor dem CODEC stehen, sonst "cannot resolve symbol shownPlayers"
     private final Set<UUID> shownPlayers = new HashSet<>();
@@ -30,10 +32,10 @@ public final class WelcomeMessageData extends SavedData {
     ).apply(inst, WelcomeMessageData::fromList));
 
     public static final SavedDataType<WelcomeMessageData> TYPE = new SavedDataType<>(
-            DATA_NAME,
+            DATA_ID,
             WelcomeMessageData::new,
             CODEC,
-            DataFixTypes.LEVEL
+            null
     );
 
     public WelcomeMessageData() {}
@@ -45,7 +47,6 @@ public final class WelcomeMessageData extends SavedData {
     }
 
     public static WelcomeMessageData get(ServerLevel level) {
-        // 1.21.5: direkt über TYPE
         return level.getDataStorage().computeIfAbsent(TYPE);
     }
 

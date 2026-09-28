@@ -2,7 +2,7 @@ package de.pasuki.colorful_redstone_lamps.fabric.datagen;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -17,9 +17,9 @@ import java.util.concurrent.CompletableFuture;
 public final class ColorfulRedstoneLampsLootTableProvider implements DataProvider {
     private static final String MOD_ID = "colorful_redstone_lamps";
 
-    private final FabricDataOutput output;
+    private final FabricPackOutput output;
 
-    public ColorfulRedstoneLampsLootTableProvider(FabricDataOutput output) {
+    public ColorfulRedstoneLampsLootTableProvider(FabricPackOutput output) {
         this.output = output;
     }
 

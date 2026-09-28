@@ -2,8 +2,8 @@ package de.pasuki.colorful_redstone_lamps.fabric.datagen;
 
 import de.pasuki.colorful_redstone_lamps.ColorfulRedstoneLamps;
 import de.pasuki.colorful_redstone_lamps.registry.ModBlocks;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 
 import java.util.concurrent.CompletableFuture;
 
-public final class ColorfulRedstoneLampsItemTagProvider extends FabricTagProvider.ItemTagProvider {
+public final class ColorfulRedstoneLampsItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
     public static final TagKey<Item> ANY_LAMP =
             TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, "any_lamp"));
     public static final TagKey<Item> LAMPS =
@@ -21,7 +21,7 @@ public final class ColorfulRedstoneLampsItemTagProvider extends FabricTagProvide
     public static final TagKey<Item> INVERTED_LAMPS =
             TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, "inverted_redstone_lamps"));
 
-    public ColorfulRedstoneLampsItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public ColorfulRedstoneLampsItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

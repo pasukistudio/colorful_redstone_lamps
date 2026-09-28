@@ -1,5 +1,5 @@
 plugins {
-    id 'com.gradleup.shadow'
+    id 'com.gradleup.shadow' version '9.6.1'
 }
 
 architectury {
@@ -25,29 +25,25 @@ configurations {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    minecraft "com.mojang:minecraft:${rootProject.architectury.minecraft}"
+    implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-    modImplementation "net.fabricmc.fabric-api:fabric-data-generation-api-v1:$rootProject.fabric_api_version"
+    implementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
-    // Architectury API. This is optional, and you can comment it out if you don't need it.
-    modImplementation "dev.architectury:architectury-fabric:$rootProject.architectury_api_version"
+    implementation("dev.architectury:architectury-fabric:$rootProject.architectury_api_version") {
+        transitive = false
+    }
 
-    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
-    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+    common(project(path: ':common')) { transitive = false }
+    shadowBundle(project(path: ':common', configuration: 'transformProductionFabric')) { transitive = false }
 }
 
-loom {
-    runs {
-        datagen {
-            inherit client
-            name "Data Generation"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${project(":common").file("src/generated/resources")}"
-            vmArg "-Dfabric-api.datagen.modid=colorful_redstone_lamps"
-            runDir "build/datagen"
-        }
+sourceSets.main.resources { srcDir project(':common').file('src/generated/resources').getAbsolutePath() }
+
+fabricApi {
+    configureDataGeneration {
+        outputDirectory = project(':common').file('src/generated/resources')
+        client = true
     }
 }
 
@@ -60,11 +56,17 @@ processResources {
 }
 
 shadowJar {
+    dependsOn jar
+    mainSpec.sourcePaths.clear()
+    from zipTree(jar.archiveFile)
     configurations = [project.configurations.shadowBundle]
-    archiveClassifier = 'dev-shadow'
+    archiveClassifier = "mc${rootProject.minecraft_version}-fabric"
 }
 
-remapJar {
-    inputFile.set shadowJar.archiveFile
-    archiveClassifier = "mc${rootProject.minecraft_version}-fabric"
+jar {
+    archiveClassifier = 'raw'
+}
+
+java {
+    withSourcesJar()
 }
