@@ -1,5 +1,4 @@
 {
-  "parent": "minecraft:recipes/root",
   "criteria": {
     "has_gray_redstone_lamp_inverted": {
       "conditions": {
@@ -13,7 +12,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "colorful_redstone_lamps:invert/gray_redstone_lamp_to_normal"
+        "recipes": "colorful_redstone_lamps:invert/gray_redstone_lamp_to_normal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -4,11 +4,18 @@ import de.pasuki.colorful_redstone_lamps.ColorfulRedstoneLamps;
 import de.pasuki.colorful_redstone_lamps.registry.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.DyeColor;
@@ -19,6 +26,7 @@ import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvider {
 
@@ -30,11 +38,17 @@ public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvi
     }
 
     @Override
-    protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
-        return new RecipeProvider(provider, recipeOutput) {
+    protected @NotNull RecipeProvider createRecipeProvider(
+            HolderLookup.Provider provider,
+            BootstrapContext<Recipe<?>> recipes,
+            BootstrapContext<Advancement> advancements
+    ) {
+        return new RecipeProvider(recipes, advancements) {
 
             @Override
             public void buildRecipes() {
+                RecipeOutput recipeOutput = new RecipeOutput26_3Fix(output);
+
                 for (DyeColor color : DyeColor.values()) {
                     String base = color.getName() + "_redstone_lamp";
 
@@ -75,6 +89,52 @@ public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvi
 
     private static Item dyeFor(DyeColor color) {
         return Items.DYE.pick(color);
+    }
+
+    /**
+     * Minecraft 26.3 creates recipe-advancement requirements before the custom
+     * unlock criteria are added. Deferring that one call keeps the requirements
+     * synchronized with all criteria when the advancement is built.
+     */
+    private static final class RecipeOutput26_3Fix implements RecipeOutput {
+        private final RecipeOutput delegate;
+
+        private RecipeOutput26_3Fix(RecipeOutput delegate) {
+            this.delegate = delegate;
+        }
+
+        @Override
+        public void accept(ResourceKey<Recipe<?>> key, Recipe<?> recipe, AdvancementHolder advancement) {
+            delegate.accept(key, recipe, advancement);
+        }
+
+        @Override
+        public Advancement.Builder advancement() {
+            return new DeferredRequirementsAdvancementBuilder();
+        }
+
+        @Override
+        public <S> HolderGetter<S> lookup(ResourceKey<? extends Registry<? extends S>> key) {
+            return delegate.lookup(key);
+        }
+
+        @Override
+        public <S> Stream<Holder.Reference<S>> listContextElements(ResourceKey<? extends Registry<? extends S>> key) {
+            return delegate.listContextElements(key);
+        }
+    }
+
+    private static final class DeferredRequirementsAdvancementBuilder extends Advancement.Builder {
+        @Override
+        public Advancement.Builder requirements(AdvancementRequirements.Strategy strategy) {
+            return this;
+        }
+
+        @Override
+        public AdvancementHolder build(Identifier id) {
+            super.requirements(AdvancementRequirements.Strategy.OR);
+            return super.build(id);
+        }
     }
 
     @Override

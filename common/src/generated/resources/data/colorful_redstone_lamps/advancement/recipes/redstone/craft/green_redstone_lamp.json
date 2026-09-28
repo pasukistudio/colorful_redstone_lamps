@@ -1,5 +1,4 @@
 {
-  "parent": "minecraft:recipes/root",
   "criteria": {
     "has_dye_green": {
       "conditions": {
@@ -23,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "colorful_redstone_lamps:craft/green_redstone_lamp"
+        "recipes": "colorful_redstone_lamps:craft/green_redstone_lamp"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
