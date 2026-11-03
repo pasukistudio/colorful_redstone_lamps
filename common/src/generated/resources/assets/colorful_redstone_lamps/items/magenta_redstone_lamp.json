@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "colorful_redstone_lamps:block/magenta_redstone_lamp_off"
+    "model": "colorful_redstone_lamps:item/magenta_redstone_lamp"
   }
 }

@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "colorful_redstone_lamps:item/brown_redstone_lamp_panel"
+  }
+}
