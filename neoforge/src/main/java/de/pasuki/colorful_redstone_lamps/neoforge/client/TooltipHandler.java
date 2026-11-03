@@ -26,5 +26,9 @@ public final class TooltipHandler {
         } else if (stack.is(ModTags.Items.INVERTED_LAMPS)) {
             event.getToolTip().add(Component.translatable("tooltip.colorful_redstone_lamps.lamp.inverted").withStyle(ChatFormatting.GRAY));
         }
+
+        if (stack.is(ModTags.Items.LAMP_PANELS) || stack.is(ModTags.Items.INVERTED_LAMP_PANELS)) {
+            event.getToolTip().add(Component.translatable("tooltip.colorful_redstone_lamps.lamp.panel.placement").withStyle(ChatFormatting.DARK_GRAY));
+        }
     }
 }
