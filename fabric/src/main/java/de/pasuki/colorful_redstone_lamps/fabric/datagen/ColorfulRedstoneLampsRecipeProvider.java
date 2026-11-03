@@ -9,13 +9,13 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.DyeColor;
@@ -23,11 +23,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvider {
 
     public ColorfulRedstoneLampsRecipeProvider(
@@ -38,44 +40,115 @@ public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvi
     }
 
     @Override
-    protected @NotNull RecipeProvider createRecipeProvider(
+    protected RecipeProvider createRecipeProvider(
             HolderLookup.Provider provider,
             BootstrapContext<Recipe<?>> recipes,
             BootstrapContext<Advancement> advancements
     ) {
         return new RecipeProvider(recipes, advancements) {
 
+            private final RecipeOutput recipeOutput = new RecipeOutput26_3Fix(output);
+
             @Override
             public void buildRecipes() {
-                RecipeOutput recipeOutput = new RecipeOutput26_3Fix(output);
-
                 for (DyeColor color : DyeColor.values()) {
-                    String base = color.getName() + "_redstone_lamp";
-
-                    ItemLike normalLamp = ModBlocks.LAMPS.get(color).get();
-                    ItemLike invertedLamp = ModBlocks.INVERTED_LAMPS.get(color).get();
-                    Item dye = dyeFor(color);
-
-                    // Vanilla lamp + dye -> colored lamp
-                    shapeless(RecipeCategory.REDSTONE, normalLamp, 1)
-                            .requires(Items.REDSTONE_LAMP)
-                            .requires(dye)
-                            .unlockedBy("has_redstone_lamp", has(Items.REDSTONE_LAMP))
-                            .unlockedBy("has_dye_" + color.getName(), has(dye))
-                            .save(recipeOutput, id("craft/" + base));
-
-                    // Colored lamp -> inverted lamp
-                    shapeless(RecipeCategory.REDSTONE, invertedLamp, 1)
-                            .requires(normalLamp)
-                            .unlockedBy("has_" + base, has(normalLamp))
-                            .save(recipeOutput, id("invert/" + base + "_to_inverted"));
-
-                    // Inverted lamp -> normal lamp
-                    shapeless(RecipeCategory.REDSTONE, normalLamp, 1)
-                            .requires(invertedLamp)
-                            .unlockedBy("has_" + base + "_inverted", has(invertedLamp))
-                            .save(recipeOutput, id("invert/" + base + "_to_normal"));
+                    addColorRecipes(color);
                 }
+            }
+
+            private void addColorRecipes(DyeColor color) {
+                String base = color.getName() + "_redstone_lamp";
+
+                ItemLike normalLamp = ModBlocks.LAMPS.get(color).get();
+                ItemLike invertedLamp = ModBlocks.INVERTED_LAMPS.get(color).get();
+                ItemLike normalPanel = ModBlocks.LAMP_PANELS.get(color).get();
+                ItemLike invertedPanel = ModBlocks.INVERTED_LAMP_PANELS.get(color).get();
+                ItemLike normalSlab = ModBlocks.LAMP_SLABS.get(color).get();
+                ItemLike invertedSlab = ModBlocks.INVERTED_LAMP_SLABS.get(color).get();
+                ItemLike normalStairs = ModBlocks.LAMP_STAIRS.get(color).get();
+                ItemLike invertedStairs = ModBlocks.INVERTED_LAMP_STAIRS.get(color).get();
+                Item dye = dyeFor(color);
+
+                // Vanilla lamp + dye -> colored lamp
+                shapeless(RecipeCategory.REDSTONE, normalLamp, 1)
+                        .requires(Items.REDSTONE_LAMP)
+                        .requires(dye)
+                        .unlockedBy("has_redstone_lamp", has(Items.REDSTONE_LAMP))
+                        .unlockedBy("has_dye_" + color.getName(), has(dye))
+                        .save(recipeOutput, id("craft/" + base));
+
+                // Colored lamp <-> inverted lamp
+                shapeless(RecipeCategory.REDSTONE, invertedLamp, 1)
+                        .requires(normalLamp)
+                        .unlockedBy("has_" + base, has(normalLamp))
+                        .save(recipeOutput, id("invert/" + base + "_to_inverted"));
+
+                shapeless(RecipeCategory.REDSTONE, normalLamp, 1)
+                        .requires(invertedLamp)
+                        .unlockedBy("has_" + base + "_inverted", has(invertedLamp))
+                        .save(recipeOutput, id("invert/" + base + "_to_normal"));
+
+                // 2 lamps are cut into 12 panels, 6 panels are assembled back into a lamp.
+                cutIntoPanels(normalLamp, normalPanel, "has_" + base, "panel/craft/" + base + "_to_panels");
+                cutIntoPanels(invertedLamp, invertedPanel, "has_" + base + "_inverted", "panel/craft/" + base + "_inverted_to_panels");
+                assembleLamp(normalPanel, normalLamp, "has_" + base + "_panel", "panel/assemble/" + base);
+                assembleLamp(invertedPanel, invertedLamp, "has_" + base + "_panel_inverted", "panel/assemble/" + base + "_inverted");
+                addInvertRecipes("panel", base, "_panel", normalPanel, invertedPanel);
+
+                // Same yields as vanilla: 3 lamps make 6 slabs, 6 lamps make 4 stairs.
+                slabs(normalLamp, normalSlab, "has_" + base, "slab/craft/" + base);
+                slabs(invertedLamp, invertedSlab, "has_" + base + "_inverted", "slab/craft/" + base + "_inverted");
+                stairs(normalLamp, normalStairs, "has_" + base, "stairs/craft/" + base);
+                stairs(invertedLamp, invertedStairs, "has_" + base + "_inverted", "stairs/craft/" + base + "_inverted");
+                addInvertRecipes("slab", base, "_slab", normalSlab, invertedSlab);
+                addInvertRecipes("stairs", base, "_stairs", normalStairs, invertedStairs);
+            }
+
+            private void addInvertRecipes(String folder, String base, String suffix, ItemLike normal, ItemLike inverted) {
+                shapeless(RecipeCategory.REDSTONE, inverted, 1)
+                        .requires(normal)
+                        .unlockedBy("has_" + base + suffix, has(normal))
+                        .save(recipeOutput, id(folder + "/invert/" + base + "_to_inverted"));
+
+                shapeless(RecipeCategory.REDSTONE, normal, 1)
+                        .requires(inverted)
+                        .unlockedBy("has_" + base + suffix + "_inverted", has(inverted))
+                        .save(recipeOutput, id(folder + "/invert/" + base + "_inverted_to_normal"));
+            }
+
+            private void slabs(ItemLike lamp, ItemLike slab, String unlockName, String recipeId) {
+                shaped(RecipeCategory.REDSTONE, slab, 6)
+                        .pattern("LLL")
+                        .define('L', lamp)
+                        .unlockedBy(unlockName, has(lamp))
+                        .save(recipeOutput, id(recipeId));
+            }
+
+            private void stairs(ItemLike lamp, ItemLike stairs, String unlockName, String recipeId) {
+                shaped(RecipeCategory.REDSTONE, stairs, 4)
+                        .pattern("L  ")
+                        .pattern("LL ")
+                        .pattern("LLL")
+                        .define('L', lamp)
+                        .unlockedBy(unlockName, has(lamp))
+                        .save(recipeOutput, id(recipeId));
+            }
+
+            private void cutIntoPanels(ItemLike lamp, ItemLike panel, String unlockName, String recipeId) {
+                shaped(RecipeCategory.REDSTONE, panel, 12)
+                        .pattern("LL")
+                        .define('L', lamp)
+                        .unlockedBy(unlockName, has(lamp))
+                        .save(recipeOutput, id(recipeId));
+            }
+
+            private void assembleLamp(ItemLike panel, ItemLike lamp, String unlockName, String recipeId) {
+                shaped(RecipeCategory.REDSTONE, lamp, 1)
+                        .pattern("PPP")
+                        .pattern("PPP")
+                        .define('P', panel)
+                        .unlockedBy(unlockName, has(panel))
+                        .save(recipeOutput, id(recipeId));
             }
 
             private static ResourceKey<Recipe<?>> id(String path) {
@@ -104,7 +177,7 @@ public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvi
         }
 
         @Override
-        public void accept(ResourceKey<Recipe<?>> key, Recipe<?> recipe, AdvancementHolder advancement) {
+        public void accept(ResourceKey<Recipe<?>> key, Recipe<?> recipe, @Nullable AdvancementHolder advancement) {
             delegate.accept(key, recipe, advancement);
         }
 
@@ -119,6 +192,7 @@ public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvi
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public <S> Stream<Holder.Reference<S>> listContextElements(ResourceKey<? extends Registry<? extends S>> key) {
             return delegate.listContextElements(key);
         }

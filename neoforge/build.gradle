@@ -56,7 +56,7 @@ shadowJar {
     dependsOn jar
     mainSpec.sourcePaths.clear()
     from zipTree(jar.archiveFile)
-    configurations = [project.configurations.shadowBundle]
+    configurations.set([project.configurations.shadowBundle])
     archiveClassifier = "mc${rootProject.minecraft_version}-neoforge"
 }
 

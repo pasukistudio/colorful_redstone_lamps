@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "has_green_redstone_lamp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "colorful_redstone_lamps:green_redstone_lamp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "colorful_redstone_lamps:stairs/craft/green_redstone_lamp"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_green_redstone_lamp"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "colorful_redstone_lamps:stairs/craft/green_redstone_lamp"
+    ]
+  }
+}

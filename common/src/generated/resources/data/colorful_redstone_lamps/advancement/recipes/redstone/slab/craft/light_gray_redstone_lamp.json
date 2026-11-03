@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "has_light_gray_redstone_lamp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "colorful_redstone_lamps:light_gray_redstone_lamp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "colorful_redstone_lamps:slab/craft/light_gray_redstone_lamp"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_light_gray_redstone_lamp"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "colorful_redstone_lamps:slab/craft/light_gray_redstone_lamp"
+    ]
+  }
+}

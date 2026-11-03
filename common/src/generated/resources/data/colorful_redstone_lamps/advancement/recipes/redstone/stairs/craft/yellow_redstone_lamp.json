@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "colorful_redstone_lamps:stairs/craft/yellow_redstone_lamp"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_yellow_redstone_lamp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "colorful_redstone_lamps:yellow_redstone_lamp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_yellow_redstone_lamp"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "colorful_redstone_lamps:stairs/craft/yellow_redstone_lamp"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "colorful_redstone_lamps:block/light_gray_redstone_lamp",
+    "side": "colorful_redstone_lamps:block/light_gray_redstone_lamp",
+    "top": "colorful_redstone_lamps:block/light_gray_redstone_lamp"
+  }
+}
