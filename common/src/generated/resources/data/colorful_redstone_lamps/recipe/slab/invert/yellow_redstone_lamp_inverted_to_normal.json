@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "colorful_redstone_lamps:yellow_redstone_lamp_slab_inverted"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "colorful_redstone_lamps:yellow_redstone_lamp_slab"
+  }
+}

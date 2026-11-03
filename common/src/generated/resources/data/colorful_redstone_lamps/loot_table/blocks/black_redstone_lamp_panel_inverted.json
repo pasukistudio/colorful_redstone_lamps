@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "colorful_redstone_lamps:black_redstone_lamp_panel_inverted"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

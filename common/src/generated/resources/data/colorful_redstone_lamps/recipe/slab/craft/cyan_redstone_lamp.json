@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "L": {
+      "item": "colorful_redstone_lamps:cyan_redstone_lamp"
+    }
+  },
+  "pattern": [
+    "LLL"
+  ],
+  "result": {
+    "count": 6,
+    "id": "colorful_redstone_lamps:cyan_redstone_lamp_slab"
+  }
+}

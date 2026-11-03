@@ -2,6 +2,9 @@ package de.pasuki.colorful_redstone_lamps.registry;
 
 import de.pasuki.colorful_redstone_lamps.ColorfulRedstoneLamps;
 import de.pasuki.colorful_redstone_lamps.block.InvertedRedstoneLampBlock;
+import de.pasuki.colorful_redstone_lamps.block.LampSlabBlock;
+import de.pasuki.colorful_redstone_lamps.block.LampStairBlock;
+import de.pasuki.colorful_redstone_lamps.block.WallMountedRedstoneLampBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.BlockPos;
@@ -49,20 +52,33 @@ public final class ModBlocks {
             new EnumMap<>(DyeColor.class);
     public static final Map<DyeColor, RegistrySupplier<Block>> INVERTED_LAMPS =
             new EnumMap<>(DyeColor.class);
+    public static final Map<DyeColor, RegistrySupplier<Block>> LAMP_PANELS =
+            new EnumMap<>(DyeColor.class);
+    public static final Map<DyeColor, RegistrySupplier<Block>> INVERTED_LAMP_PANELS =
+            new EnumMap<>(DyeColor.class);
+
+    public static final Map<DyeColor, RegistrySupplier<Block>> LAMP_SLABS =
+            new EnumMap<>(DyeColor.class);
+    public static final Map<DyeColor, RegistrySupplier<Block>> INVERTED_LAMP_SLABS =
+            new EnumMap<>(DyeColor.class);
+    public static final Map<DyeColor, RegistrySupplier<Block>> LAMP_STAIRS =
+            new EnumMap<>(DyeColor.class);
+    public static final Map<DyeColor, RegistrySupplier<Block>> INVERTED_LAMP_STAIRS =
+            new EnumMap<>(DyeColor.class);
 
     static {
         for (DyeColor color : DyeColor.values()) {
-            // Normal lamp variant
-            String baseName = color.getName() + "_redstone_lamp";
-            RegistrySupplier<Block> lamp = registerBlock(baseName,
-                    () -> new RedstoneLampBlock(baseProps(color)));
-            LAMPS.put(color, lamp);
-
-            // Inverted lamp variant
-            String invName = color.getName() + "_redstone_lamp_inverted";
-            RegistrySupplier<Block> invLamp = registerBlock(invName,
-                    () -> new InvertedRedstoneLampBlock(baseProps(color)));
-            INVERTED_LAMPS.put(color, invLamp);
+            String base = color.getName() + "_redstone_lamp";
+            LAMPS.put(color, registerBlock(base, () -> new RedstoneLampBlock(baseProps(color))));
+            INVERTED_LAMPS.put(color, registerBlock(base + "_inverted", () -> new InvertedRedstoneLampBlock(baseProps(color))));
+            LAMP_PANELS.put(color, registerBlock(base + "_panel",
+                    () -> new WallMountedRedstoneLampBlock(baseProps(color).noOcclusion(), false)));
+            INVERTED_LAMP_PANELS.put(color, registerBlock(base + "_panel_inverted",
+                    () -> new WallMountedRedstoneLampBlock(baseProps(color).noOcclusion(), true)));
+            LAMP_SLABS.put(color, registerBlock(base + "_slab", () -> new LampSlabBlock(baseProps(color), false)));
+            INVERTED_LAMP_SLABS.put(color, registerBlock(base + "_slab_inverted", () -> new LampSlabBlock(baseProps(color), true)));
+            LAMP_STAIRS.put(color, registerBlock(base + "_stairs", () -> new LampStairBlock(baseProps(color), false)));
+            INVERTED_LAMP_STAIRS.put(color, registerBlock(base + "_stairs_inverted", () -> new LampStairBlock(baseProps(color), true)));
         }
     }
 

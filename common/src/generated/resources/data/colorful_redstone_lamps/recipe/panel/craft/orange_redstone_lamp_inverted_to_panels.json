@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "L": {
+      "item": "colorful_redstone_lamps:orange_redstone_lamp_inverted"
+    }
+  },
+  "pattern": [
+    "LL"
+  ],
+  "result": {
+    "count": 12,
+    "id": "colorful_redstone_lamps:orange_redstone_lamp_panel_inverted"
+  }
+}

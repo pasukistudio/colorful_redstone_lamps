@@ -16,23 +16,21 @@ public final class ModLanguageEntries {
             String colorName = toEnglishColorDisplayName(color);
             String baseId = color.getName() + "_redstone_lamp";
 
-            entries.put("block.colorful_redstone_lamps." + baseId, colorName + " Redstone Lamp");
-            entries.put("block.colorful_redstone_lamps." + baseId + "_inverted", colorName + " Redstone Lamp (Inverted)");
-            entries.put("item.colorful_redstone_lamps." + baseId, colorName + " Redstone Lamp");
-            entries.put("item.colorful_redstone_lamps." + baseId + "_inverted", colorName + " Redstone Lamp (Inverted)");
+            putBlockAndItem(entries, baseId, colorName + " Redstone Lamp");
+            putBlockAndItem(entries, baseId + "_inverted", colorName + " Redstone Lamp (Inverted)");
+            putBlockAndItem(entries, baseId + "_panel", colorName + " Redstone Lamp Panel");
+            putBlockAndItem(entries, baseId + "_panel_inverted", colorName + " Redstone Lamp Panel (Inverted)");
+            putBlockAndItem(entries, baseId + "_slab", colorName + " Redstone Lamp Slab");
+            putBlockAndItem(entries, baseId + "_slab_inverted", colorName + " Redstone Lamp Slab (Inverted)");
+            putBlockAndItem(entries, baseId + "_stairs", colorName + " Redstone Lamp Stairs");
+            putBlockAndItem(entries, baseId + "_stairs_inverted", colorName + " Redstone Lamp Stairs (Inverted)");
         }
 
         entries.put("itemGroup.colorful_redstone_lamps.normal_lamps", "Colorful Redstone Lamps");
         entries.put("itemGroup.colorful_redstone_lamps.inverted_lamps", "Inverted Colorful Redstone Lamps");
         entries.put("tooltip.colorful_redstone_lamps.lamp.normal",   "Turns on with a redstone signal.");
         entries.put("tooltip.colorful_redstone_lamps.lamp.inverted", "Turns off with a redstone signal.");
-        entries.put("colorful_redstone_lamps.welcome.title", "Colorful Redstone Lamps loaded.");
-        entries.put("colorful_redstone_lamps.welcome.feedback_intro", "Feedback:");
-        entries.put("colorful_redstone_lamps.welcome.feedback.github", "Github");
-        entries.put("colorful_redstone_lamps.welcome.feedback.discord", "Discord");
-        entries.put("config.colorful_redstone_lamps.show_welcome_message", "Show Welcome Message");
-
-
+        entries.put("tooltip.colorful_redstone_lamps.lamp.panel.placement", "Can be placed on walls, floors, and ceilings.");
         return entries;
     }
 
@@ -41,25 +39,30 @@ public final class ModLanguageEntries {
 
         for (DyeColor color : DyeColor.values()) {
             String colorName = toGermanColorDisplayName(color);
+            String panelColorName = toGermanPanelColorDisplayName(color);
             String baseId = color.getName() + "_redstone_lamp";
 
-            entries.put("block.colorful_redstone_lamps." + baseId, colorName + " Redstone-Lampe");
-            entries.put("block.colorful_redstone_lamps." + baseId + "_inverted", colorName + " invertierte Redstone-Lampe");
-            entries.put("item.colorful_redstone_lamps." + baseId, colorName + " Redstone-Lampe");
-            entries.put("item.colorful_redstone_lamps." + baseId + "_inverted", colorName + " invertierte Redstone-Lampe");
+            putBlockAndItem(entries, baseId, colorName + " Redstone-Lampe");
+            putBlockAndItem(entries, baseId + "_inverted", colorName + " invertierte Redstone-Lampe");
+            putBlockAndItem(entries, baseId + "_panel", panelColorName + " Redstone-Lampenpanel");
+            putBlockAndItem(entries, baseId + "_panel_inverted", panelColorName + " invertiertes Redstone-Lampenpanel");
+            putBlockAndItem(entries, baseId + "_slab", colorName + " Redstone-Lampenplatte");
+            putBlockAndItem(entries, baseId + "_slab_inverted", colorName + " invertierte Redstone-Lampenplatte");
+            putBlockAndItem(entries, baseId + "_stairs", colorName + " Redstone-Lampentreppe");
+            putBlockAndItem(entries, baseId + "_stairs_inverted", colorName + " invertierte Redstone-Lampentreppe");
         }
 
         entries.put("itemGroup.colorful_redstone_lamps.normal_lamps", "Bunte Redstone-Lampen");
         entries.put("itemGroup.colorful_redstone_lamps.inverted_lamps", "Bunte Redstone-Lampen Invertiert");
         entries.put("tooltip.colorful_redstone_lamps.lamp.normal",   "Schaltet sich bei Redstone-Signal ein.");
         entries.put("tooltip.colorful_redstone_lamps.lamp.inverted", "Schaltet sich bei Redstone-Signal aus.");
-        entries.put("colorful_redstone_lamps.welcome.title", "Colorful Redstone Lamps geladen.");
-        entries.put("colorful_redstone_lamps.welcome.feedback_intro", "Feedback:");
-        entries.put("colorful_redstone_lamps.welcome.feedback.github", "Github");
-        entries.put("colorful_redstone_lamps.welcome.feedback.discord", "Discord");
-        entries.put("config.colorful_redstone_lamps.show_welcome_message", "Willkommensnachricht anzeigen");
-
+        entries.put("tooltip.colorful_redstone_lamps.lamp.panel.placement", "Kann an Wänden, Böden und Decken angebracht werden.");
         return entries;
+    }
+
+    private static void putBlockAndItem(Map<String, String> entries, String id, String name) {
+        entries.put("block.colorful_redstone_lamps." + id, name);
+        entries.put("item.colorful_redstone_lamps." + id, name);
     }
 
     private static String toEnglishColorDisplayName(DyeColor color) {
@@ -96,6 +99,27 @@ public final class ModLanguageEntries {
             case BLUE -> "Blaue";
             case PURPLE -> "Violette";
             case MAGENTA -> "Magenta";
+            case PINK -> "Rosa";
+        };
+    }
+
+    private static String toGermanPanelColorDisplayName(DyeColor color) {
+        return switch (color) {
+            case WHITE -> "Weißes";
+            case LIGHT_GRAY -> "Hellgraues";
+            case GRAY -> "Graues";
+            case BLACK -> "Schwarzes";
+            case BROWN -> "Braunes";
+            case RED -> "Rotes";
+            case ORANGE -> "Oranges";
+            case YELLOW -> "Gelbes";
+            case LIME -> "Hellgrünes";
+            case GREEN -> "Grünes";
+            case CYAN -> "Türkises";
+            case LIGHT_BLUE -> "Hellblaues";
+            case BLUE -> "Blaues";
+            case PURPLE -> "Violettes";
+            case MAGENTA -> "Magentafarbenes";
             case PINK -> "Rosa";
         };
     }
