@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "L": "colorful_redstone_lamps:green_redstone_lamp"
+  },
+  "pattern": [
+    "LL"
+  ],
+  "result": {
+    "count": 12,
+    "id": "colorful_redstone_lamps:green_redstone_lamp_panel"
+  }
+}
