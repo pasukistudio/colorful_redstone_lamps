@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom,lit=false": {
+      "model": "colorful_redstone_lamps:block/purple_redstone_lamp_slab_off"
+    },
+    "type=bottom,lit=true": {
+      "model": "colorful_redstone_lamps:block/purple_redstone_lamp_slab_on"
+    },
+    "type=double,lit=false": {
+      "model": "colorful_redstone_lamps:block/purple_redstone_lamp_off"
+    },
+    "type=double,lit=true": {
+      "model": "colorful_redstone_lamps:block/purple_redstone_lamp_on"
+    },
+    "type=top,lit=false": {
+      "model": "colorful_redstone_lamps:block/purple_redstone_lamp_slab_top_off"
+    },
+    "type=top,lit=true": {
+      "model": "colorful_redstone_lamps:block/purple_redstone_lamp_slab_top_on"
+    }
+  }
+}

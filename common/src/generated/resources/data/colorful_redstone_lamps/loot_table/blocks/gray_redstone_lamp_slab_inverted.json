@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": true,
+              "conditions": [
+                {
+                  "block": "colorful_redstone_lamps:gray_redstone_lamp_slab_inverted",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "type": "double"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "colorful_redstone_lamps:gray_redstone_lamp_slab_inverted"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

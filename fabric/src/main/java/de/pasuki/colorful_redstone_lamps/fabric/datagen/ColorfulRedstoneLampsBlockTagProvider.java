@@ -1,5 +1,9 @@
 package de.pasuki.colorful_redstone_lamps.fabric.datagen;
 
+import java.util.Map;
+import java.util.List;
+import net.minecraft.resources.ResourceKey;
+import dev.architectury.registry.registries.RegistrySupplier;
 import de.pasuki.colorful_redstone_lamps.ColorfulRedstoneLamps;
 import de.pasuki.colorful_redstone_lamps.registry.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -28,10 +32,18 @@ public final class ColorfulRedstoneLampsBlockTagProvider extends FabricTagProvid
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         for (DyeColor color : DyeColor.values()) {
-            tag(LAMPS).add(ModBlocks.LAMPS.get(color).get().builtInRegistryHolder().key());
-            tag(INVERTED_LAMPS).add(ModBlocks.INVERTED_LAMPS.get(color).get().builtInRegistryHolder().key());
+            for (var group : List.of(ModBlocks.LAMPS, ModBlocks.LAMP_PANELS, ModBlocks.LAMP_SLABS, ModBlocks.LAMP_STAIRS)) {
+                tag(LAMPS).add(blockKey(group, color));
+            }
+            for (var group : List.of(ModBlocks.INVERTED_LAMPS, ModBlocks.INVERTED_LAMP_PANELS, ModBlocks.INVERTED_LAMP_SLABS, ModBlocks.INVERTED_LAMP_STAIRS)) {
+                tag(INVERTED_LAMPS).add(blockKey(group, color));
+            }
         }
 
         tag(ANY_LAMP).addTag(LAMPS).addTag(INVERTED_LAMPS);
+    }
+
+    private static ResourceKey<Block> blockKey(Map<DyeColor, RegistrySupplier<Block>> blocks, DyeColor color) {
+        return ResourceKey.create(Registries.BLOCK, blocks.get(color).getId());
     }
 }
