@@ -9,7 +9,7 @@ public final class TooltipHandler {
     private TooltipHandler() {}
 
     public static void register() {
-        ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
+        ItemTooltipCallback.EVENT.register((stack, _, _, lines) -> {
             if (stack.isEmpty()) {
                 return;
             }
@@ -18,6 +18,10 @@ public final class TooltipHandler {
                 lines.add(Component.translatable("tooltip.colorful_redstone_lamps.lamp.normal").withStyle(ChatFormatting.GRAY));
             } else if (stack.is(ModTags.Items.INVERTED_LAMPS)) {
                 lines.add(Component.translatable("tooltip.colorful_redstone_lamps.lamp.inverted").withStyle(ChatFormatting.GRAY));
+            }
+
+            if (stack.is(ModTags.Items.LAMP_PANELS) || stack.is(ModTags.Items.INVERTED_LAMP_PANELS)) {
+                lines.add(Component.translatable("tooltip.colorful_redstone_lamps.lamp.panel.placement").withStyle(ChatFormatting.DARK_GRAY));
             }
         });
     }
