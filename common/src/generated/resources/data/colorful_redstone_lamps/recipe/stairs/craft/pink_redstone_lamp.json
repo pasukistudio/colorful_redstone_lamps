@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "L": "colorful_redstone_lamps:pink_redstone_lamp"
+  },
+  "pattern": [
+    "L  ",
+    "LL ",
+    "LLL"
+  ],
+  "result": {
+    "count": 4,
+    "id": "colorful_redstone_lamps:pink_redstone_lamp_stairs"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "P": "colorful_redstone_lamps:gray_redstone_lamp_panel_inverted"
+  },
+  "pattern": [
+    "PPP",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "colorful_redstone_lamps:gray_redstone_lamp_inverted"
+  }
+}
