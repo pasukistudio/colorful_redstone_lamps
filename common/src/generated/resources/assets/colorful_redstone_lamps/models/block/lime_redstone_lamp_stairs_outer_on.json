@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "colorful_redstone_lamps:block/lime_redstone_lamp_on",
+    "side": "colorful_redstone_lamps:block/lime_redstone_lamp_on",
+    "top": "colorful_redstone_lamps:block/lime_redstone_lamp_on"
+  }
+}
