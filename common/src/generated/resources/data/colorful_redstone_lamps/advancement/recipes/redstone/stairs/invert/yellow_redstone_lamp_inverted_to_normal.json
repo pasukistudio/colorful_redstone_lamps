@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "colorful_redstone_lamps:stairs/invert/yellow_redstone_lamp_inverted_to_normal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_yellow_redstone_lamp_stairs_inverted": {
+      "conditions": {
+        "items": [
+          {
+            "items": "colorful_redstone_lamps:yellow_redstone_lamp_stairs_inverted"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_yellow_redstone_lamp_stairs_inverted"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "colorful_redstone_lamps:stairs/invert/yellow_redstone_lamp_inverted_to_normal"
+    ]
+  }
+}
